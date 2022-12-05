@@ -3,7 +3,25 @@ import requests
 from streamlit_lottie import st_lottie
 
 #load assets
+#THEME set up
+#HEX colour Theme - #eddbc3
 
+# Primary accent for interactive elements
+primaryColor = '#FF4B4B'
+
+# Background color for the main content area
+backgroundColor = '#262730'
+
+# Background color for sidebar and most interactive widgets
+secondaryBackgroundColor = '#B9F1C0'
+
+# Color used for almost all text
+textColor = '#000000'
+
+# Font family for all text in the app, except code blocks
+# Accepted values (serif | sans serif | monospace)
+# Default: "sans serif"
+font = "sans serif"
 
 def load_lottieurl(url):
     r=requests.get(url)
