@@ -5,6 +5,7 @@ import datetime
 import matplotlib.pyplot as plt
 import mpld3
 import streamlit.components.v1 as components
+from datetime import date
 
 
 #load assets
@@ -70,8 +71,10 @@ with st.form(key='params_for_api'):
     column1, column2= st.columns([1,3])
     with column1:
         #buttons/imputs
-        prediction_day=st.slider(label='Prediction for day:',min_value=1, max_value=14, step= int(1))
-        prediction_element=st.selectbox(label='Element to predict', options=('Total Energy Production','Hidroelectric Energy Production','Energy consumption'))
+        today=date.today()
+        end_date = today + datetime.timedelta(days=5)
+        prediction_day=st.date_input(label='Prediction for day:',min_value= today, max_value=end_date)
+        prediction_element=st.selectbox(label='Element to predict', options=('Hidroelectric Energy Production','Temperature','Precepitation'))
         st.form_submit_button('Make prediction')
 
     with column2:
@@ -82,6 +85,6 @@ with st.form(key='params_for_api'):
             components.html(fig_html, height=800)
     params=dict(
         prediction_day=prediction_day,
-        prediction_elemnt=prediction_element)
-    #green_app_url='https://brunovspok-how-green-app-app-how-green-xuvaoi.streamlit.app'
+        prediction_element=prediction_element)
+    #green_app_url='API URL'
     #response=requests.get(green_app_url, params=params)

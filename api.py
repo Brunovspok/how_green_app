@@ -5,4 +5,9 @@ app = FastAPI()
 # Define a root `/` endpoint
 @app.get('/')
 def index():
-    return {'ok': True}
+    return {'hi': True}
+
+
+@app.get('/predict')
+def predict():
+    return {'pred': True}

@@ -6,3 +6,4 @@ matplotlib
 mpld3
 fastapi
 uvicorn
+datetime
