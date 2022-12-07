@@ -82,3 +82,5 @@ with st.form(key='params_for_api'):
     params=dict(
         prediction_day=prediction_day,
         prediction_elemnt=prediction_element)
+    #green_app_url='tbd'
+    #response=requests.get(green_app_url, params=params)
