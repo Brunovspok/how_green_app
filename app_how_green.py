@@ -1,27 +1,16 @@
 import streamlit    as st
 import requests
 from streamlit_lottie import st_lottie
+import datetime
+import matplotlib.pyplot as plt
+import mpld3
+import streamlit.components.v1 as components
+
 
 #load assets
-#THEME set up
-#HEX colour Theme - #eddbc3
 
-# Primary accent for interactive elements
-primaryColor = '#FF4B4B'
+#Theme set up on  "config.toml" -> HEX colour theme background - #eddbc3
 
-# Background color for the main content area
-backgroundColor = '#262730'
-
-# Background color for sidebar and most interactive widgets
-secondaryBackgroundColor = '#B9F1C0'
-
-# Color used for almost all text
-textColor = '#000000'
-
-# Font family for all text in the app, except code blocks
-# Accepted values (serif | sans serif | monospace)
-# Default: "sans serif"
-font = "sans serif"
 
 def load_lottieurl(url):
     r=requests.get(url)
@@ -30,6 +19,7 @@ def load_lottieurl(url):
     return r.json()
 
 lottie_coding= load_lottieurl('https://assets3.lottiefiles.com/packages/lf20_UbkeyZPVH7.json')
+lottie_coding2=load_lottieurl('https://assets9.lottiefiles.com/packages/lf20_iombyzfq.json')
 # page title
 st.set_page_config(page_title="How Green Can We Go?",page_icon=":deciduous_tree:",layout="wide")
 
@@ -49,8 +39,43 @@ with st.container():
         st.write("This source of energy has been threatened due to the severe drought that has been increasing in the last few years, along all territory.")
         st.write("##")
     with right_column:
+        #st_lottie(lottie_coding2, height=300, key="sun")
         st_lottie(lottie_coding, height=300, key="dam energy")
+st.write('---')
+#-intro second part
+with st.container():
+    intro_column1,intro_column2, intro_column3=st.columns([1,2,1])
+    with intro_column1:
+        st.write("Since 2000 Portugal has been trough severe drought episodes, and every year this phenomenon becomes more and more extreme")
+        st.write("As the drought itensifies, the southern part of the country is already dry, and these dams are already usting its capacity to local consumption only")
+        st.write("Therefore, we only using data from the north region of the country(Douro) as the main source of hidroelectric production.")
+    with intro_column2:
+        img1_url='https://www.cruzeiros-douro.pt/content/uploads/maingallery/crops/596_banner_1568998997.jpg'
+        st.image(image=img1_url,use_column_width='auto')
+    with intro_column3:
+        img2_url='https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/LocalRegiaoNorte.svg/1200px-LocalRegiaoNorte.svg.png'
+        st.image(image=img2_url,width=260)
+    st.write('---')
+    st.write('##')
+
 #--secon headliner
 with st.container():
-    st.subheader("The question we want to answer:")
-    st.header('"Should we continue invest in hydroelectric energy?"')
+    st.header('Lets do some predictions! :four_leaf_clover:')
+
+#st.slider(label='Prediction year:', min_value='2018', max_value='2032')
+
+
+with st.form(key='params_for_api'):
+
+    column1, column2= st.columns([1,3])
+    with column1:
+
+        prediction_year=st.slider(label='Prediction for day:',min_value=1, max_value=14, step= int(1))
+        prediction_element=st.selectbox(label='Element to predict', options=('Total Energy Production','Hidroelectric Energy Production','Energy consumption'))
+        st.form_submit_button('Make prediction')
+
+    with column2:
+            fig = plt.figure(figsize=(15,8))
+            plt.plot([1, 2, 3, 4, 5])
+            fig_html = mpld3.fig_to_html(fig)
+            components.html(fig_html, height=800)
