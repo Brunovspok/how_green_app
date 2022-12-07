@@ -71,9 +71,10 @@ with st.form(key='params_for_api'):
     column1, column2= st.columns([1,3])
     with column1:
         #buttons/imputs
+        min_val = datetime.date(2019, 1, 1)
         today=date.today()
-        end_date = today + datetime.timedelta(days=5)
-        prediction_day=st.date_input(label='Prediction for day:',min_value= today, max_value=end_date)
+        end_date = today + datetime.timedelta(days=48)
+        prediction_day=st.date_input(label='Prediction for day:',min_value= min_val, max_value=end_date)
         prediction_element=st.selectbox(label='Element to predict', options=('Hidroelectric Energy Production','Temperature','Precepitation'))
         st.form_submit_button('Make prediction')
 
