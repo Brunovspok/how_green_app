@@ -1,0 +1,7 @@
+streamlit
+requests
+streamlit-lottie
+datetime
+matplotlib.pyplot
+mpld3
+streamlit.components.v1

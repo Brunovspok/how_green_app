@@ -62,7 +62,7 @@ with st.container():
 with st.container():
     st.header('Lets do some predictions! :four_leaf_clover:')
 
-#st.slider(label='Prediction year:', min_value='2018', max_value='2032')
+#st.slider(label='Prediction day:', min_value='2018', max_value='2032')
 
 
 with st.form(key='params_for_api'):
@@ -70,7 +70,7 @@ with st.form(key='params_for_api'):
     column1, column2= st.columns([1,3])
     with column1:
 
-        prediction_year=st.slider(label='Prediction for day:',min_value=1, max_value=14, step= int(1))
+        prediction_day=st.slider(label='Prediction for day:',min_value=1, max_value=14, step= int(1))
         prediction_element=st.selectbox(label='Element to predict', options=('Total Energy Production','Hidroelectric Energy Production','Energy consumption'))
         st.form_submit_button('Make prediction')
 
@@ -79,3 +79,6 @@ with st.form(key='params_for_api'):
             plt.plot([1, 2, 3, 4, 5])
             fig_html = mpld3.fig_to_html(fig)
             components.html(fig_html, height=800)
+    params=dict(
+        prediction_day=prediction_day,
+        prediction_elemnt=prediction_element)
