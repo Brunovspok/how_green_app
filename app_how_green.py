@@ -35,7 +35,7 @@ with st.container():
     with left_column:
         st.write("In the last couple of decades the green energy has proven to be a promising alternative to fossil fuels,")
         st.write("although climate changes may have an impact of all that has been done until now.")
-        st.write("About 40% of the energy used in Portugal comes from renewable energies, half of which comes from hydroelectric energy.")
+        st.write("About 60% of the energy used in Portugal comes from renewable energies, 40% of which comes from hydroelectric energy.")
         st.write("This source of energy has been threatened due to the severe drought that has been increasing in the last few years, along all territory.")
         st.write("##")
     with right_column:
