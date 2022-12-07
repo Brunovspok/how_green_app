@@ -4,3 +4,5 @@ streamlit-lottie
 datetime
 matplotlib
 mpld3
+fastapi
+uvicorn
