@@ -1,12 +1,11 @@
 streamlit
 requests
+pandas
 streamlit_lottie
 datetime
 matplotlib
 mpld3
-datetime
 warnings
-pandas
 numpy
 re
 tensorflow.keras.preprocessing
