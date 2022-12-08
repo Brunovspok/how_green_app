@@ -1,4 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile
+import numpy as np
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import timeseries_dataset_from_array
 
 app = FastAPI()
 
@@ -7,7 +10,17 @@ app = FastAPI()
 def index():
     return {'hi': True}
 
+@app.post("/predict/")
+async def create_upload_file(file: UploadFile):
 
-@app.get('/predict')
-def predict():
-    return {'pred': True}
+    content = await file.read()
+    X_train = np.frombuffer(content, dtype=np.float32).reshape(590, 3)
+    model = load_model('my_model')
+    dataset_test = timeseries_dataset_from_array(
+        X_train,
+        np.ones(48),
+        sequence_length=50,
+        batch_size=32,
+    )
+    pred = model.predict(dataset_test)
+    return {'pred': np.array(pred).tolist()}
