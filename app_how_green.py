@@ -92,7 +92,7 @@ with st.form(key='params_for_api'):
             components.html(fig_html, height=800)
 
 
-"""
+
     ###Model
 
     #1676 = TODAY
@@ -175,4 +175,3 @@ with st.form(key='params_for_api'):
     response =requests.post(url,files=file).json()
     pred = np.array(response["pred"])
     pred
-"""
