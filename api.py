@@ -1,7 +1,7 @@
 from fastapi import FastAPI, UploadFile
 import numpy as np
 from keras.models import load_model
-from keras.preprocessing import timeseries_dataset_from_array
+from tensorflow.keras.preprocessing import timeseries_dataset_from_array
 
 app = FastAPI()
 
@@ -14,7 +14,8 @@ def index():
 async def create_upload_file(file: UploadFile):
 
     content = await file.read()
-    X_train = np.frombuffer(content, dtype=np.float32).reshape(590, 3)
+    X_train = np.frombuffer(content, dtype=np.float32)
+    X_train = X_train.reshape(int(len(X_train)/3), 3)
     model = load_model('my_model')
     dataset_test = timeseries_dataset_from_array(
         X_train,

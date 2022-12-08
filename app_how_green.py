@@ -88,94 +88,95 @@ with st.form(key='params_for_api'):
 
 
 
-    ###Model
-
-    #1676 = TODAY
-    the_input = prediction_day #change
-    today=date.today()
-    date_difference = today - to_datetime(the_input).date()
-    begin_date = 1676 - date_difference.days
-
-    #downlaod data + prepocessing#
-    df = pd.read_csv('data/full_data_2011-01-01_2022-11-26.csv')
-    df_rain = pd.read_csv('data/data_precipitation.csv', sep=';')
-    df_temp = pd.read_csv('data/temperature_data.csv', sep=';')
-    df_futur_rain = pd.read_csv('data/future_rain.csv', sep=';')
-    df_futur_temp = pd.read_csv('data/future_temp.csv', sep=';')
-
-
-    df = df.loc[[2]].drop(columns='Unnamed: 0').T
-    df.columns = ['energie']
-    df['The_date'] = df['energie']
-    dict_month = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05', 'Jun': '06', 'Jul': '07', 'Aug': '08','Sep': '09','Oct': '10','Nov': '11','Dec': '12'}
-    for i in range(len(df)):
-        day = "".join(re.findall("\d", df.index[i].split(" ", 1)[0]))
-        month = dict_month[df.index[i].split(" ")[1]]
-        year = "".join(re.findall("\d", df.index[i].split(" ", 1)[1]))
-        the_date = f'{day}-{month}-{year}'
-        df['The_date'].iloc[i] = the_date
-    df['The_date'] = pd.to_datetime(df['The_date'])
-    df_temp.drop(columns=['Unnamed: 17'], inplace = True)
-    df = df[2557:-18]
-    df.reset_index(inplace = True)
-    df_futur_rain['mean'] = df_futur_rain.mean(axis=1)
-    df_futur_temp['mean'] = df_futur_temp.mean(axis=1)
-
-    df_final = pd.DataFrame()
-    df_final['temp'] = df_futur_temp['mean']
-    df_final['rain'] = df_futur_rain['mean']
-    df_final['energie'] = df["energie"]
-
-    #smooth curve#
-    df_final['energie_ma'] = df_final['energie'].rolling(14).mean()
-    df_final['rain_ma'] = df_final['rain'].rolling(14).mean()
-    df_final['temp_ma'] = df_final['temp'].rolling(14).mean()
-
-    #data scaling#
-    df_to_scale = ['energie_ma','rain_ma', 'temp_ma']
-    scaler = StandardScaler()
-
-    for column in df_to_scale:
-                df_final[column] = scaler.fit_transform(pd.DataFrame(df_final[column],columns=[column]))
-
-
-    #data spliting(train-test-pred)#
-    X=[]
-    x=[]
-    y = []
-
-    for i in range(14,begin_date):
-        x = []
-        x.append(df_final.loc[i, 'temp_ma'])
-        x.append(df_final.loc[i, 'rain_ma'])
-        x.append(df_final.loc[i, 'energie_ma'])
-        X.append(x)
-
-    y = df_final['energie_ma'][begin_date:begin_date+48]
-
-    X_train = np.array(X).astype(np.float32)
-    y_train = np.array(y).astype(np.float32)
-
-    dataset_test = timeseries_dataset_from_array(
-        X_train,
-        y_train,
-        sequence_length=50,
-        batch_size=32,
-    )
-
-
-    url = "http://127.0.0.1:8000/predict/"
-    file = {"file": X_train}
-
-    response =requests.post(url,files=file).json()
-    pred = np.array(response["pred"])
-    pred
-
     with column2:
+        ###Model
+
+        #1676 = TODAY
+        the_input = prediction_day #change
+        today=date.today()
+        date_difference = today - to_datetime(the_input).date()
+        begin_date = 1676 - date_difference.days
+
+        #downlaod data + prepocessing#
+        df = pd.read_csv('data/full_data_2011-01-01_2022-11-26.csv')
+        df_rain = pd.read_csv('data/data_precipitation.csv', sep=';')
+        df_temp = pd.read_csv('data/temperature_data.csv', sep=';')
+        df_futur_rain = pd.read_csv('data/future_rain.csv', sep=';')
+        df_futur_temp = pd.read_csv('data/future_temp.csv', sep=';')
+
+
+        df = df.loc[[2]].drop(columns='Unnamed: 0').T
+        df.columns = ['energie']
+        df['The_date'] = df['energie']
+        dict_month = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05', 'Jun': '06', 'Jul': '07', 'Aug': '08','Sep': '09','Oct': '10','Nov': '11','Dec': '12'}
+        for i in range(len(df)):
+            day = "".join(re.findall("\d", df.index[i].split(" ", 1)[0]))
+            month = dict_month[df.index[i].split(" ")[1]]
+            year = "".join(re.findall("\d", df.index[i].split(" ", 1)[1]))
+            the_date = f'{day}-{month}-{year}'
+            df['The_date'].iloc[i] = the_date
+        df['The_date'] = pd.to_datetime(df['The_date'])
+        df_temp.drop(columns=['Unnamed: 17'], inplace = True)
+        df = df[2557:-18]
+        df.reset_index(inplace = True)
+        df_futur_rain['mean'] = df_futur_rain.mean(axis=1)
+        df_futur_temp['mean'] = df_futur_temp.mean(axis=1)
+
+        df_final = pd.DataFrame()
+        df_final['temp'] = df_futur_temp['mean']
+        df_final['rain'] = df_futur_rain['mean']
+        df_final['energie'] = df["energie"]
+
+        #smooth curve#
+        df_final['energie_ma'] = df_final['energie'].rolling(14).mean()
+        df_final['rain_ma'] = df_final['rain'].rolling(14).mean()
+        df_final['temp_ma'] = df_final['temp'].rolling(14).mean()
+
+        #data scaling#
+        df_to_scale = ['energie_ma','rain_ma', 'temp_ma']
+        scaler = StandardScaler()
+
+        for column in df_to_scale:
+                    df_final[column] = scaler.fit_transform(pd.DataFrame(df_final[column],columns=[column]))
+
+
+        #data spliting(train-test-pred)#
+        X=[]
+        x=[]
+        y = []
+
+        for i in range(14,begin_date):
+            x = []
+            x.append(df_final.loc[i, 'temp_ma'])
+            x.append(df_final.loc[i, 'rain_ma'])
+            x.append(df_final.loc[i, 'energie_ma'])
+            X.append(x)
+
+        y = df_final['energie_ma'][begin_date:begin_date+48]
+
+        X_train = np.array(X).astype(np.float32)
+        y_train = np.array(y).astype(np.float32)
+
+        dataset_test = timeseries_dataset_from_array(
+            X_train,
+            y_train,
+            sequence_length=50,
+            batch_size=32,
+        )
+
+
+        url = "http://127.0.0.1:8000/predict/"
+        file = {"file": X_train}
+
+        response =requests.post(url,files=file).json()
+        pred = np.array(response["pred"])
+
         #graphic
         df_final['pred'] = df_final['energie_ma']
         for i in range(48):
             df_final['pred'][begin_date+i] = pred[i]
+
+        fig = plt.figure(figsize=(15,8))
 
         if begin_date >= 1675:
             plt.plot(df_final['pred'][begin_date-100:begin_date],label='REAL');
@@ -184,3 +185,5 @@ with st.form(key='params_for_api'):
             plt.plot(df_final['pred'][begin_date-30:begin_date+48],ls='--',label='PREDICTION');
             plt.plot(df_final['energie_ma'][begin_date-30:begin_date+48],label='REAL');
             plt.legend(loc='upper left', fontsize=8);
+
+        st.pyplot(fig)
