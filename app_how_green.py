@@ -11,10 +11,10 @@ warnings.filterwarnings("ignore")
 import pandas as pd
 import numpy as np
 import re
-from tensorflow.keras.preprocessing import timeseries_dataset_from_array
+from keras.preprocessing import timeseries_dataset_from_array
 from sklearn.preprocessing import StandardScaler
-from tensorflow.keras.models import Sequential
-from tensorflow.keras import layers
+from keras.models import Sequential
+from keras import layers
 from pandas import to_datetime
 
 #load assets
@@ -164,7 +164,6 @@ with st.form(key='params_for_api'):
         batch_size=32,
     )
 
-    import requests
 
     url = "http://127.0.0.1:8000/predict/"
     file = {"file": X_train}
