@@ -11,9 +11,9 @@ warnings.filterwarnings("ignore")
 import pandas as pd
 import numpy as np
 import re
-from keras.utils import timeseries_dataset_from_array
-from sklearn.preprocessing import StandardScaler
-from pandas import to_datetime
+#from keras.utils import timeseries_dataset_from_array
+#from sklearn.preprocessing import StandardScaler
+#from pandas import to_datetime
 
 #load assets
 
@@ -84,9 +84,15 @@ with st.form(key='params_for_api'):
         prediction_day=st.date_input(label='Prediction for day:',min_value= min_val, max_value=end_date)
         prediction_element=st.selectbox(label='Element to predict', options=('Hidroelectric Energy Production','Temperature','Precepitation'))
         st.form_submit_button('Make prediction')
+    with column2:
+        #graphic
+            fig = plt.figure(figsize=(15,8))
+            plt.plot([1, 2, 3, 4, 5])
+            fig_html = mpld3.fig_to_html(fig)
+            components.html(fig_html, height=800)
 
 
-
+"""
     ###Model
 
     #1676 = TODAY
@@ -169,10 +175,4 @@ with st.form(key='params_for_api'):
     response =requests.post(url,files=file).json()
     pred = np.array(response["pred"])
     pred
-
-    with column2:
-        #graphic
-            fig = plt.figure(figsize=(15,8))
-            plt.plot(X_train,pred)
-            fig_html = mpld3.fig_to_html(fig)
-            components.html(fig_html, height=800)
+"""
