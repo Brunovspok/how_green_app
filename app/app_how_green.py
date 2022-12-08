@@ -14,8 +14,8 @@ import re
 from keras.utils import timeseries_dataset_from_array
 from sklearn.preprocessing import StandardScaler
 from pandas import to_datetime
-
-#load assets
+from datetime import timedelta
+    #load assets
 
 #Theme set up on  "config.toml" -> HEX colour theme background - #eddbc3
 
@@ -166,15 +166,25 @@ with st.form(key='params_for_api'):
 
 
         url = "https://how-green-cfddvd7twq-ew.a.run.app/predict/"
-        file = {"file": X_train}
+        #url = "http://127.0.0.1:8000/predict/"
+        files = [("files", X_train),
+         ("files", y_train)]
 
-        response =requests.post(url,files=file).json()
+        response =requests.post(url,files=files).json()
         pred = np.array(response["pred"])
 
         #graphic
         df_final['pred'] = df_final['energie_ma']
         for i in range(48):
             df_final['pred'][begin_date+i] = pred[i]
+
+        df_final['pred'] = scaler.inverse_transform(df_final[['pred']])
+        df_final['energie_ma'] =scaler.inverse_transform(df_final[['energie_ma']])
+
+        df_final['days'] = df_final.index
+        for i in range(len(df_final)):
+            df_final['days'].iloc[i] = datetime.datetime.today().date() - timedelta(int(df_final['days'].iloc[i]))
+        df_final.set_index('days',inplace=True)
 
         fig = plt.figure(figsize=(15,8))
 
