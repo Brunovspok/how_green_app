@@ -11,7 +11,7 @@ warnings.filterwarnings("ignore")
 import pandas as pd
 import numpy as np
 import re
-from keras.preprocessing import timeseries_dataset_from_array
+from keras.utils import timeseries_dataset_from_array
 from sklearn.preprocessing import StandardScaler
 from keras.models import Sequential
 from keras import layers
