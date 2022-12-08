@@ -2,7 +2,7 @@ streamlit
 requests
 streamlit_lottie
 datetime
-matplotlib.pyplot
+matplotlib
 mpld3
 streamlit.components.v1
 datetime
