@@ -13,8 +13,6 @@ import numpy as np
 import re
 from keras.utils import timeseries_dataset_from_array
 from sklearn.preprocessing import StandardScaler
-from keras.models import Sequential
-from keras import layers
 from pandas import to_datetime
 
 #load assets
