@@ -165,7 +165,7 @@ with st.form(key='params_for_api'):
         )
 
 
-        url = "http://127.0.0.1:8000/predict/"
+        url = "https://how-green-cfddvd7twq-ew.a.run.app/predict/"
         file = {"file": X_train}
 
         response =requests.post(url,files=file).json()
