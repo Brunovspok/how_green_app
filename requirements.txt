@@ -5,7 +5,6 @@ streamlit_lottie
 datetime
 matplotlib
 mpld3
-warnings
 numpy
 re
 tensorflow.keras.preprocessing
