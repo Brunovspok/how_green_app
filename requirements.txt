@@ -6,8 +6,5 @@ datetime
 matplotlib
 mpld3
 numpy
-re
-tensorflow.keras.preprocessing
-sklearn.preprocessing
-tensorflow.keras.models
-tensorflow.keras
+tensorflow
+sklearn
