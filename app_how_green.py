@@ -84,12 +84,7 @@ with st.form(key='params_for_api'):
         prediction_day=st.date_input(label='Prediction for day:',min_value= min_val, max_value=end_date)
         prediction_element=st.selectbox(label='Element to predict', options=('Hidroelectric Energy Production','Temperature','Precepitation'))
         st.form_submit_button('Make prediction')
-    with column2:
-        #graphic
-            fig = plt.figure(figsize=(15,8))
-            plt.plot([1, 2, 3, 4, 5])
-            fig_html = mpld3.fig_to_html(fig)
-            components.html(fig_html, height=800)
+
 
 
 
@@ -175,3 +170,17 @@ with st.form(key='params_for_api'):
     response =requests.post(url,files=file).json()
     pred = np.array(response["pred"])
     pred
+
+    with column2:
+        #graphic
+        df_final['pred'] = df_final['energie_ma']
+        for i in range(48):
+            df_final['pred'][begin_date+i] = pred[i]
+
+        if begin_date >= 1675:
+            plt.plot(df_final['pred'][begin_date-100:begin_date],label='REAL');
+            plt.plot(df_final['pred'][begin_date-1:begin_date+48],ls='--',label='PREDICTION');
+        else:
+            plt.plot(df_final['pred'][begin_date-30:begin_date+48],ls='--',label='PREDICTION');
+            plt.plot(df_final['energie_ma'][begin_date-30:begin_date+48],label='REAL');
+            plt.legend(loc='upper left', fontsize=8);
