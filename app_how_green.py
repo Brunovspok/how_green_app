@@ -97,11 +97,11 @@ with st.form(key='params_for_api'):
     begin_date = 1676 - date_difference.days
 
     #downlaod data + prepocessing#
-    df = pd.read_csv('../data/full_data_2011-01-01_2022-11-26.csv')
-    df_rain = pd.read_csv('../data/data_precipitation.csv', sep=';')
-    df_temp = pd.read_csv('../data/temperature_data.csv', sep=';')
-    df_futur_rain = pd.read_csv('../data/future_rain.csv', sep=';')
-    df_futur_temp = pd.read_csv('../data/future_temp.csv', sep=';')
+    df = pd.read_csv('data/full_data_2011-01-01_2022-11-26.csv')
+    df_rain = pd.read_csv('data/data_precipitation.csv', sep=';')
+    df_temp = pd.read_csv('data/temperature_data.csv', sep=';')
+    df_futur_rain = pd.read_csv('data/future_rain.csv', sep=';')
+    df_futur_temp = pd.read_csv('data/future_temp.csv', sep=';')
 
 
     df = df.loc[[2]].drop(columns='Unnamed: 0').T
