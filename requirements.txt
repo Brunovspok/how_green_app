@@ -1,11 +1,12 @@
 streamlit
 requests
-streamlit_lottie
+streamlit-lottie
 datetime
 matplotlib
 mpld3
+fastapi
+uvicorn
 datetime
 pandas
-numpy
 tensorflow
 sklearn
