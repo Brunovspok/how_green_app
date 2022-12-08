@@ -1,10 +1,11 @@
 streamlit
 requests
-pandas
 streamlit_lottie
 datetime
 matplotlib
 mpld3
+datetime
+pandas
 numpy
 tensorflow
 sklearn
