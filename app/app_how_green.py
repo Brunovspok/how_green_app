@@ -189,6 +189,7 @@ with st.form(key='params_for_api'):
         fig = plt.figure(figsize=(15,8))
         plt.xlabel("Date")
         plt.ylabel("Energy Production (MW)")
+        plt.title("Hidroelectric Production")
 
         if begin_date >= 1675:
             plt.plot(df_final['pred'][begin_date-100:begin_date],label='REAL');
