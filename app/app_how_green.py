@@ -193,7 +193,7 @@ with st.form(key='params_for_api'):
 
         if begin_date >= 1675:
             plt.plot(df_final['pred'][begin_date-100:begin_date],label='REAL');
-            plt.plot(df_final['pred'][begin_date-1:begin_date+48],ls='--',label='PREDICTION');
+            plt.plot(df_final['energie_ma'][begin_date-1:begin_date+48],ls='--',label='PREDICTION');
             plt.legend(loc='upper left', fontsize=8);
         else:
             plt.plot(df_final['pred'][begin_date-30:begin_date+48],ls='--',label='PREDICTION');
