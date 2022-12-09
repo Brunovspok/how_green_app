@@ -188,7 +188,7 @@ with st.form(key='params_for_api'):
 
         fig = plt.figure(figsize=(15,8))
         plt.xlabel("Date")
-        plt.ylabel("Energy Production (MW)")
+        plt.ylabel("Energy Production (GW)")
         plt.title("Hidroelectric Production")
 
         if begin_date >= 1675:
