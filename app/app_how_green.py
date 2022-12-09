@@ -183,7 +183,7 @@ with st.form(key='params_for_api'):
 
         df_final['days'] = df_final.index
         for i in range(len(df_final)):
-            df_final['days'].iloc[i] = datetime.datetime.today().date() - timedelta(int(df_final['days'].iloc[i]))
+            df_final['days'].iloc[i] = datetime.datetime.today().date() - timedelta(1676-int(df_final['days'].iloc[i]))
         df_final.set_index('days',inplace=True)
 
         fig = plt.figure(figsize=(15,8))
