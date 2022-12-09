@@ -192,7 +192,7 @@ with st.form(key='params_for_api'):
         plt.title("Hidroelectric Production")
 
         if begin_date >= 1675:
-            plt.plot(df_final['pred'][begin_date-100:begin_date],ls='--',label='Prediction');
+            plt.plot(df_final['pred'][begin_date-30:begin_date],ls='--',label='Prediction');
             plt.plot(df_final['energie_ma'][begin_date-1:begin_date+48],label='Real');
             plt.legend(loc='upper left', fontsize=8);
         else:
