@@ -187,6 +187,8 @@ with st.form(key='params_for_api'):
         df_final.set_index('days',inplace=True)
 
         fig = plt.figure(figsize=(15,8))
+        plt.xlabel("Date")
+        plt.ylabel("Energy Production (MW)")
 
         if begin_date >= 1675:
             plt.plot(df_final['pred'][begin_date-100:begin_date],label='REAL');
