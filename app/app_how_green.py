@@ -196,7 +196,7 @@ with st.form(key='params_for_api'):
             plt.plot(df_final['energie_ma'][begin_date-1:begin_date+48],label='Real');
             plt.legend(loc='upper left', fontsize=8);
         else:
-            plt.plot(df_final['pred'][begin_date-30:begin_date+48],label='PREDICTION'ls='--');
+            plt.plot(df_final['pred'][begin_date-30:begin_date+48],label='PREDICTION',ls='--');
             plt.plot(df_final['energie_ma'][begin_date-30:begin_date+48],label='REAL');
             plt.legend(loc='upper left', fontsize=8);
 
